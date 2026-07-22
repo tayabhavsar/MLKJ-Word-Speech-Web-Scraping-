@@ -55,7 +55,7 @@ python src/word_frequency.py
 Or point it at a different page / tag / output location:
 
 ```bash
-python src/word_frequency.py --url "https://example.com/some-speech.htm" --tag p --out output/counts.csv
+python src/word_frequency.py --url "'http://analytictech.com/mb021/mlk.htm'" --tag p --out output/counts.csv
 ```
 
 Sample output:
