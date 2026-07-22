@@ -4,10 +4,9 @@ A Python project that scrapes the text of a speech from a webpage, cleans it
 up with regular expressions, and counts how often each word appears using
 pandas. Built as hands-on practice combining three core skills: web scraping
 (`requests` + `BeautifulSoup`), regex-based text cleaning, and data
-aggregation with pandas — refactored from an exploratory notebook into
-reusable, testable functions. The example target is Dr. Martin Luther King
-Jr.'s 1963 "I Have a Dream" speech, but the URL and HTML tag can be swapped
-out to analyze any similar page of text.
+aggregation with pandas. The example target is Dr. Martin Luther King Jr.'s
+1963 "I Have a Dream" speech, but the approach works on any similar page of
+text.
 
 ## What it does
 
@@ -20,76 +19,50 @@ out to analyze any similar page of text.
    `pandas.Series.value_counts()`.
 4. **Export** — saves the results to a CSV (word, count).
 
-## Project structure
+## Repo contents
 
-```
-mlk-speech-word-frequency/
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── src/
-│   └── word_frequency.py   # scrape -> clean -> count -> save pipeline
-├── data/                   # (optional) place for saved/raw HTML if you cache it
-└── output/                 # generated CSVs land here (ignored by git)
-```
+- `WebScraping_Regex_Project.md` — the full step-by-step process: every cell,
+  the intermediate outputs, and the reasoning behind each cleaning step
+- `MLK_Speech_Counts.csv` — the final word-count results from running the
+  process on the MLK speech
+- `requirements.txt` — the packages needed to reproduce this (`requests`,
+  `beautifulsoup4`, `pandas`)
 
-## Setup
+## Results
 
-```bash
-git clone https://github.com/<your-username>/mlk-speech-word-frequency.git
-cd mlk-speech-word-frequency
-python -m venv venv
-source venv/bin/activate      # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+The cleaned speech breaks down into 323 unique words. The most common:
 
-## Usage
+| word | count |
+|------|-------|
+| the  | 54    |
+| of   | 49    |
+| to   | 29    |
+| and  | 27    |
+| a    | 20    |
 
-Run with the defaults (scrapes the MLK speech page and saves to
-`output/word_counts.csv`):
+Full results in [`MLK_Speech_Counts.csv`](./MLK_Speech_Counts.csv).
 
-```bash
-python src/word_frequency.py
-```
+## How to reproduce
 
-Or point it at a different page / tag / output location:
-
-```bash
-python src/word_frequency.py --url "'http://analytictech.com/mb021/mlk.htm'" --tag p --out output/counts.csv
-```
-
-Sample output:
-
-```
-Saved 323 unique words to output/word_counts.csv
-
-Top 10 most common words:
-word
-the    54
-of     49
-to     29
-and    27
-a      20
-...
-```
+1. Install dependencies: `pip install -r requirements.txt`
+2. Open `WebScraping_Regex_Project.md` and run through the steps in order —
+   it walks through scraping the page, cleaning the text with regex, and
+   counting words with pandas.
 
 ## Why this project
 
-This started as a notebook exploration to practice three things together:
-web scraping (`requests` + `BeautifulSoup`), regular expressions for text
-cleaning, and `pandas` for aggregation. It's been refactored here into
-reusable functions (`fetch_html`, `extract_text`, `clean_text`,
-`count_words`) instead of one long notebook, so it's easier to read, test,
-and reuse on a different speech or article.
+Built to practice three things together: web scraping (`requests` +
+`BeautifulSoup`), regular expressions for text cleaning, and `pandas` for
+aggregation — end to end, from a live webpage to a clean, countable dataset.
 
 ## Possible next steps
 
-- Add a `--top` flag to only print/save the top N words
+- Refactor the process into a reusable script with functions
+- Add a CLI so it works on any URL, not just the MLK speech page
 - Filter out common stopwords ("the", "of", "to"...) for a more meaningful
   frequency list
-- Add unit tests for `clean_text` and `count_words`
-- Visualize the top words with a bar chart (matplotlib) or a word cloud
+- Visualize the top words with a bar chart or word cloud
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](./LICENSE).
